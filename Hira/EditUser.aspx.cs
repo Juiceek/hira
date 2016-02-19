@@ -6,6 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using Hira.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Hira
 {
@@ -29,6 +32,13 @@ namespace Hira
                         user.PhoneNumber = txtboxPhoneNumber.Text;
 
                         dbContext.SaveChanges();
+
+                        if (true)//IsValid)
+                        {
+                            UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+                            var result = userManager.RemovePassword(userId);
+                            result = userManager.AddPassword(userId, txtboxNewPassword.Text);
+                        }
                     }
                     Response.Redirect("Users.aspx");
                 }

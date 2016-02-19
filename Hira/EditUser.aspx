@@ -54,18 +54,25 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
+                <asp:Label ID="Label7" runat="server" Text="New password:" Font-Bold="True"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox runat="server" ID="txtboxNewPassword" TextMode="Password" Width="178px"/>
+            </td>
         </tr>
         <tr>
-            <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
+                <asp:Label ID="Label8" runat="server" Text="Confirm new password:" Font-Bold="True"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox runat="server" ID="txtboxConfirmNewPassword" TextMode="Password" Width="177px"/>
+            </td>
         </tr>
         <tr>
             <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
             <td>
-                
-            </td>
+                &nbsp;</td>
         </tr>
     </table>
     <asp:Button ID="btnSave" runat="server" Text="Save" Width="117px" />
