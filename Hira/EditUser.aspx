@@ -6,7 +6,7 @@
     </div>
     <table class="nav-justified">
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
                 <asp:Label ID="Label1" runat="server" Text="Username:" Font-Bold="True"></asp:Label>
             </td>
             <td>
@@ -14,7 +14,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
                 <asp:Label ID="Label2" runat="server" Text="Email:" Font-Bold="True"></asp:Label>
             </td>
             <td>
@@ -22,7 +22,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
                 <asp:Label ID="Label3" runat="server" Text="Email confirmed:" Font-Bold="True"></asp:Label>
             </td>
             <td>
@@ -30,7 +30,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
                 <asp:Label ID="Label4" runat="server" Text="Phone Number:" Font-Bold="True"></asp:Label>
             </td>
             <td>
@@ -38,35 +38,35 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
                 <asp:Label ID="Label5" runat="server" Text="Phone Number confirmed:" Font-Bold="True"></asp:Label>
             </td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px;">
                 <asp:Label ID="Label6" runat="server" Text="Two Factor enabled:" Font-Bold="True"></asp:Label>
             </td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">&nbsp;</td>
+            <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">&nbsp;</td>
+            <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">&nbsp;</td>
+            <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 190px; text-align: right; padding-right: 20px;">&nbsp;</td>
+            <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
             <td>
                 
             </td>
         </tr>
     </table>
-    <asp:Button ID="btnSave" runat="server" Text="Save" Width="117px" OnClick="btnSave_Click" />
+    <asp:Button ID="btnSave" runat="server" Text="Save" Width="117px" />
 </asp:Content>

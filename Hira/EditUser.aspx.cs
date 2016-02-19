@@ -19,16 +19,16 @@ namespace Hira
                 if (Request.QueryString["Action"] == "edit")
                 {
                     string userId = Request.QueryString["UserId"];
-                    using (var UsersContext = new ApplicationDbContext())
+                    using (var dbContext = new ApplicationDbContext())
                     {
-                        var user = UsersContext.Users.First(u => u.Id == userId);
+                        var user = dbContext.Users.First(u => u.Id == userId);
 
                         user.UserName = txtboxUsername.Text;
                         user.Email = txtboxEmail.Text;
                         user.EmailConfirmed = checkboxEmailConfirmed.Checked;
                         user.PhoneNumber = txtboxPhoneNumber.Text;
 
-                        UsersContext.SaveChanges();
+                        dbContext.SaveChanges();
                     }
                     Response.Redirect("Users.aspx");
                 }
@@ -77,9 +77,6 @@ namespace Hira
 
         }
 
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 }
