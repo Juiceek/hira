@@ -45,7 +45,7 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse navbar-fixed-top" style="height:50px;">
             <!--div class="container"-->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -53,7 +53,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Hira Project</a>
+                    <img src="Content/Images/Social-Media-Marketing-icon.png" style="width:30px; height:30px; margin: 10px 10px;"/>
+                    <a class="navbar-brand" runat="server" href="~/" style="font-size:24px; float:none; padding-left:0px;">Hira Project</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <!--ul class="nav navbar-nav">
@@ -91,7 +92,7 @@
 
                     <ul class="nav nav-pills nav-stacked" style="margin-left:20px; margin-right:20px;">
                       <li role="presentation">
-                          <a href="#">
+                          <a href="Users.aspx">
                               <img src="Content/Images/Users.png" style="width:33px; height:33px;"/>
                               Users
                           </a>
@@ -108,7 +109,7 @@
                     </ul>
 
                 </td>
-                <td>
+                <td style="vertical-align: top">
                     <div style="padding: 10px">
                         <asp:ContentPlaceHolder ID="MainContent" runat="server">
                             <p>
