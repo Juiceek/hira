@@ -16,75 +16,146 @@ namespace Hira
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
-                // Save button pressed 
                 if (Request.QueryString["Action"] == "edit")
                 {
                     string userId = Request.QueryString["UserId"];
                     using (var dbContext = new ApplicationDbContext())
                     {
                         var user = dbContext.Users.First(u => u.Id == userId);
-
-                        user.UserName = txtboxUsername.Text;
-                        user.Email = txtboxEmail.Text;
-                        user.EmailConfirmed = checkboxEmailConfirmed.Checked;
-                        user.PhoneNumber = txtboxPhoneNumber.Text;
-
-                        dbContext.SaveChanges();
-
-                        if (true)//IsValid)
-                        {
-                            UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
-                            var result = userManager.RemovePassword(userId);
-                            result = userManager.AddPassword(userId, txtboxNewPassword.Text);
-                        }
-                    }
-                    Response.Redirect("Users.aspx");
-                }
-                else if (Request.QueryString["Action"] == "create")
-                {
-                    var user = new ApplicationUser();
-                    
-                    user.UserName = txtboxUsername.Text;
-                    user.Email = txtboxEmail.Text;
-                    user.EmailConfirmed = checkboxEmailConfirmed.Checked;
-                    user.PhoneNumber = txtboxPhoneNumber.Text;
-
-                    using (var dbContext = new ApplicationDbContext())
-                    {
-                        dbContext.Users.Add(user);
-                        dbContext.SaveChanges();
-                    }
-                    Response.Redirect("Users.aspx");
-                }
-                else
-                    throw new Exception("got unknown action type");
-            }
-            else
-            {
-                if (Request.QueryString["Action"] == "edit")
-                {
-                    string userId = Request.QueryString["UserId"];
-                    lblMain.Text = "Editing User";
-                    using (var dbContext = new ApplicationDbContext())
-                    {
-                        var user = dbContext.Users.First(u => u.Id == userId);
-
+                        // Set fields.
                         txtboxUsername.Text = user.UserName;
                         txtboxEmail.Text = user.Email;
                         checkboxEmailConfirmed.Checked = user.EmailConfirmed;
                         txtboxPhoneNumber.Text = user.PhoneNumber;
+                        //
                     }
+                    lblMain.Text = "Editing User";
+                    checkboxChangePassword.Checked = false;
+                    txtboxNewPassword.Enabled = checkboxChangePassword.Checked;
+                    txtboxConfirmNewPassword.Enabled = checkboxChangePassword.Checked;
                 }
                 else if (Request.QueryString["Action"] == "create")
                 {
                     lblMain.Text = "Creating New User";
+                    checkboxChangePassword.Visible = false;
+                    txtboxNewPassword.Enabled = true;
+                    txtboxConfirmNewPassword.Enabled = true;
                 }
                 else
                     throw new Exception("got unknown action type");
             }
+        }
 
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        protected void checkboxChangePassword_CheckedChanged(object sender, EventArgs e)
+        {
+            txtboxNewPassword.Enabled = checkboxChangePassword.Checked;
+            txtboxConfirmNewPassword.Enabled = checkboxChangePassword.Checked;
+        }
+
+
+        private bool FieldsAreValid()
+        {
+            if (txtboxNewPassword.Enabled)
+            {
+                if (String.IsNullOrEmpty(txtboxNewPassword.Text))
+                    ModelState.AddModelError("", "The password field is required.");
+                if (String.IsNullOrEmpty(txtboxConfirmNewPassword.Text))
+                    ModelState.AddModelError("", "The password confirmation field is required.");
+                if (!String.IsNullOrEmpty(txtboxNewPassword.Text)
+                    &&
+                    !String.IsNullOrEmpty(txtboxConfirmNewPassword.Text)
+                    &&
+                    txtboxNewPassword.Text != txtboxConfirmNewPassword.Text)
+                {
+                    ModelState.AddModelError("", "The password and confirmation password do not match.");
+                }
+            }
+            if (String.IsNullOrEmpty(txtboxUsername.Text))
+            {
+                ModelState.AddModelError("", "The name field is required.");
+            }
+            
+            return !ModelState.Values.Any();
+        }
+
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!this.FieldsAreValid())
+                return;
+
+            if (Request.QueryString["Action"] == "edit")
+            {
+                string userId = Request.QueryString["UserId"];
+                using (var dbContext = new ApplicationDbContext())
+                {
+                    var user = dbContext.Users.First(u => u.Id == userId);
+                    // Set fields.
+                    user.UserName = txtboxUsername.Text;
+                    user.Email = txtboxEmail.Text;
+                    user.EmailConfirmed = checkboxEmailConfirmed.Checked;
+                    user.PhoneNumber = txtboxPhoneNumber.Text;
+                    // 
+                    if (txtboxNewPassword.Enabled)
+                    {
+                        UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+                        var result = userManager.RemovePassword(userId);
+                        result = userManager.AddPassword(userId, txtboxNewPassword.Text);
+                        if (!result.Succeeded)
+                        {
+                            AddErrors(result);
+                            return;
+                        }
+                    }
+                    dbContext.SaveChanges();
+                    Response.Redirect("Users.aspx?successMessage=UserEdited");
+                }
+            }
+            else if (Request.QueryString["Action"] == "create")
+            {
+                var user = new ApplicationUser();
+                user.Id = Guid.NewGuid().ToString();
+                // Set fields.
+                user.UserName = txtboxUsername.Text;
+                user.Email = txtboxEmail.Text;
+                user.EmailConfirmed = checkboxEmailConfirmed.Checked;
+                user.PhoneNumber = txtboxPhoneNumber.Text;
+                // 
+                using (var dbContext = new ApplicationDbContext())
+                {
+                    dbContext.Users.Add(user);
+                    dbContext.SaveChanges();
+                        
+                    UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
+                    var result = userManager.RemovePassword(user.Id);
+                    result = userManager.AddPassword(user.Id, txtboxNewPassword.Text);
+                    if (result.Succeeded)
+                    {
+                        Response.Redirect("Users.aspx?successMessage=UserCreated");
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                        // Rollback.
+                        dbContext.Users.Remove(user);
+                        dbContext.SaveChanges();
+                        return;
+                    }
+                }
+            }
+            else
+                throw new Exception("got unknown action type");
         }
 
 

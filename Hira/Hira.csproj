@@ -171,6 +171,7 @@
     <Content Include="Content\Images\Module.png" />
     <Content Include="Content\Images\New.png" />
     <Content Include="Content\Images\Roles.png" />
+    <Content Include="Content\Images\Save.png" />
     <Content Include="Content\Images\Social-Media-Marketing-icon.png" />
     <Content Include="Content\Images\User.png" />
     <Content Include="Content\Images\Users.png" />

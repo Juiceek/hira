@@ -148,12 +148,21 @@ namespace Hira {
         protected global::System.Web.UI.WebControls.TextBox txtboxConfirmNewPassword;
         
         /// <summary>
+        /// checkboxChangePassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox checkboxChangePassword;
+        
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.LinkButton btnSave;
     }
 }
