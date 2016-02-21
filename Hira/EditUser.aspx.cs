@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using Hira.Models;
+using Hira.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,7 +22,7 @@ namespace Hira
                 if (Request.QueryString["Action"] == "edit")
                 {
                     string userId = Request.QueryString["UserId"];
-                    using (var dbContext = new ApplicationDbContext())
+                    using (var dbContext = new HiraDbContext())
                     {
                         var user = dbContext.Users.First(u => u.Id == userId);
                         // Seting fields.
@@ -57,7 +58,7 @@ namespace Hira
                     txtboxConfirmNewPassword.Enabled = true;
                     // Init roles list.
                     chkboxlistUserRoles.Items.Clear();
-                    using (var dbContext = new ApplicationDbContext())
+                    using (var dbContext = new HiraDbContext())
                     {
                         foreach (var role in dbContext.Roles.ToList())
                         {
@@ -113,7 +114,7 @@ namespace Hira
         }
 
 
-        private void LoadUserRolesFromControl(IdentityUser user, ApplicationDbContext dbContext)
+        private void LoadUserRolesFromControl(IdentityUser user, HiraDbContext dbContext)
         {
             user.Roles.Clear();
             foreach (ListItem listboxItem in chkboxlistUserRoles.Items)
@@ -134,7 +135,7 @@ namespace Hira
             if (Request.QueryString["Action"] == "edit")
             {
                 string userId = Request.QueryString["UserId"];
-                using (var dbContext = new ApplicationDbContext())
+                using (var dbContext = new HiraDbContext())
                 {
                     var user = dbContext.Users.First(u => u.Id == userId);
                     // Set fields.
@@ -161,7 +162,7 @@ namespace Hira
             }
             else if (Request.QueryString["Action"] == "create")
             {
-                var user = new ApplicationUser();
+                var user = new AppUser();
                 user.Id = Guid.NewGuid().ToString();
                 // Set fields.
                 user.UserName = txtboxUsername.Text;
@@ -169,7 +170,7 @@ namespace Hira
                 user.EmailConfirmed = checkboxEmailConfirmed.Checked;
                 user.PhoneNumber = txtboxPhoneNumber.Text;
                 // 
-                using (var dbContext = new ApplicationDbContext())
+                using (var dbContext = new HiraDbContext())
                 {
                     dbContext.Users.Add(user);
                     LoadUserRolesFromControl(user, dbContext);

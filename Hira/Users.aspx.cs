@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using Hira.Models;
+using Hira.DAL;
 
 namespace Hira
 {
@@ -15,9 +16,9 @@ namespace Hira
 
         private void LoadGridData()
         {
-            using (var UsersContext = new ApplicationDbContext())
+            using (var dbContext = new HiraDbContext())
             {
-                var users = UsersContext.Users.ToList();
+                var users = dbContext.Users.ToList();
                 gridUsers.DataSource = users;
                 gridUsers.DataBind();
             }
@@ -43,7 +44,7 @@ namespace Hira
         protected void gridUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             var id = this.gridUsers.DataKeys[e.RowIndex].Value.ToString();
-            using (var dbContext = new ApplicationDbContext())
+            using (var dbContext = new HiraDbContext())
             {
                 var user = dbContext.Users.First(u => u.Id == id);
                 dbContext.Users.Remove(user);

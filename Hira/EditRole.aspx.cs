@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using Hira.Models;
+using Hira.DAL;
 
 namespace Hira
 {
@@ -19,7 +20,7 @@ namespace Hira
                 if (Request.QueryString["Action"] == "edit")
                 {
                     string roleId = Request.QueryString["RoleId"];
-                    using (var dbContext = new ApplicationDbContext())
+                    using (var dbContext = new HiraDbContext())
                     {
                         var role = dbContext.Roles.First(u => u.Id == roleId);
 
@@ -31,11 +32,11 @@ namespace Hira
                 }
                 else if (Request.QueryString["Action"] == "create")
                 {
-                    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                    var role = new AppRole();
 
                     role.Name = txtboxRoleName.Text;
 
-                    using (var dbContext = new ApplicationDbContext())
+                    using (var dbContext = new HiraDbContext())
                     {
                         dbContext.Roles.Add(role);
                         dbContext.SaveChanges();
@@ -51,7 +52,7 @@ namespace Hira
                 {
                     string roleId = Request.QueryString["RoleId"];
                     lblMain.Text = "Editing Role";
-                    using (var dbContext = new ApplicationDbContext())
+                    using (var dbContext = new HiraDbContext())
                     {
                         var role = dbContext.Roles.First(u => u.Id == roleId);
 
