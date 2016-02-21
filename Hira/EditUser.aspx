@@ -15,10 +15,10 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 207px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px; height: 24px;">
                 <asp:Label ID="Label2" runat="server" Text="Email:" Font-Bold="True"></asp:Label>
             </td>
-            <td>
+            <td style="height: 24px">
                 <asp:TextBox ID="txtboxEmail" runat="server" Width="180px"></asp:TextBox>
             </td>
         </tr>
@@ -39,19 +39,21 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 207px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px; height: 22px;">
                 <asp:Label ID="Label5" runat="server" Text="Phone Number confirmed:" Font-Bold="True"></asp:Label>
             </td>
-            <td>&nbsp;</td>
+            <td style="height: 22px"></td>
         </tr>
         <tr>
-            <td style="width: 207px; text-align: right; padding-right: 20px;">
+            <td style="width: 207px; text-align: right; padding-right: 20px; height: 23px;">
                 <asp:Label ID="Label6" runat="server" Text="Two Factor enabled:" Font-Bold="True"></asp:Label>
             </td>
-            <td>&nbsp;</td>
+            <td style="height: 23px"></td>
         </tr>
         <tr>
-            <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
+            <td style="width: 207px; text-align: right; padding-right: 20px;" colspan="2">
+                <hr class="" style="border-color: #cdcdcd; height:1px; margin: 5px 0px 20px 20px; width: 350px;" />
+            </td>
             <td>
                 &nbsp;</td>
         </tr>
@@ -75,8 +77,38 @@
             <td style="width: 207px; text-align: right; padding-right: 20px;">&nbsp;</td>
             <td>
                 <asp:CheckBox ID="checkboxChangePassword" runat="server" Text="Change password" AutoPostBack="True" OnCheckedChanged="checkboxChangePassword_CheckedChanged" Font-Bold="False" />
+                
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 207px; text-align: right; padding-right: 20px; height: 22px;" colspan="2">
+                <hr class="" style="border-color: #cdcdcd; height:1px; margin: 5px 0px 20px 20px; width: 350px;" />
+            </td>
+            <td style="height: 22px">
+                
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 207px; text-align: right; padding-right: 20px; vertical-align: top; ">
+                <asp:Label ID="Label9" runat="server" Text="User roles:" Font-Bold="True"></asp:Label>
+            </td>
+            <td style="padding-left: 20px; ">
+                <asp:CheckBoxList ID="chkboxlistUserRoles" runat="server">
+                    <asp:ListItem>Role1</asp:ListItem>
+                    <asp:ListItem>Role2</asp:ListItem>
+                    <asp:ListItem>Role3</asp:ListItem>
+                </asp:CheckBoxList>
+                
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 207px; text-align: right; padding-right: 20px; height: 22px;" colspan="2">
+                <hr class="" style="border-color: #cdcdcd; height:1px; margin: 5px 0px 20px 20px; width: 350px;" />
+            </td>
+            <td style="height: 22px">
+                
             </td>
         </tr>
         </table>
-    <asp:LinkButton ID="btnSave" runat="server" CssClass="btn btn-default" style="display:block; background-color:#D7EBFF; margin:15px 0px 0px 15px;" Height="30px" OnClick="btnSave_Click" Width="175px"> <img src="Content/Images/Save.png" style="width:20px; height:20px;"/> Save </asp:LinkButton>
+    <asp:LinkButton ID="btnSave" runat="server" CssClass="btn btn-default" style="display:block; background-color:#D7EBFF; margin:0px 0px 0px 15px;" Height="30px" OnClick="btnSave_Click" Width="175px"> <img src="Content/Images/Save.png" style="width:20px; height:20px;"/> Save </asp:LinkButton>
     </asp:Content>

@@ -422,6 +422,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DAL\" />
     <Folder Include="temp\" />
   </ItemGroup>
   <PropertyGroup>

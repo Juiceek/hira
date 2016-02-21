@@ -13,7 +13,7 @@
 
     <div style="margin-bottom:30px; margin-top:20px; margin-left:30px;">
         <img src="Content/Images/User.png" style="width:40px; height:40px;" />
-        <asp:Label ID="lblMain" runat="server" Text="Users Management" CssClass="h3"></asp:Label>
+        <asp:Label ID="lblMain" runat="server" Text="User Management" CssClass="h3"></asp:Label>
     </div>
     <div>
         <asp:PlaceHolder runat="server" ID="successMessage" Visible="false" ViewStateMode="Disabled">

@@ -24,24 +24,47 @@ namespace Hira
                     using (var dbContext = new ApplicationDbContext())
                     {
                         var user = dbContext.Users.First(u => u.Id == userId);
-                        // Set fields.
+                        // Seting fields.
                         txtboxUsername.Text = user.UserName;
                         txtboxEmail.Text = user.Email;
                         checkboxEmailConfirmed.Checked = user.EmailConfirmed;
                         txtboxPhoneNumber.Text = user.PhoneNumber;
-                        //
+                        // Init controls.
+                        lblMain.Text = "Editing User";
+                        checkboxChangePassword.Checked = false;
+                        txtboxNewPassword.Enabled = checkboxChangePassword.Checked;
+                        txtboxConfirmNewPassword.Enabled = checkboxChangePassword.Checked;
+                        // Init roles list.
+                        chkboxlistUserRoles.Items.Clear();
+                        foreach(var role in dbContext.Roles.ToList())
+                        {
+                            chkboxlistUserRoles.Items.Add(
+                                new ListItem()
+                                {
+                                    Text = role.Name,
+                                    Value = role.Id,
+                                    Selected = user.Roles.Any(r => r.RoleId == role.Id)
+                                });
+                        }
                     }
-                    lblMain.Text = "Editing User";
-                    checkboxChangePassword.Checked = false;
-                    txtboxNewPassword.Enabled = checkboxChangePassword.Checked;
-                    txtboxConfirmNewPassword.Enabled = checkboxChangePassword.Checked;
                 }
                 else if (Request.QueryString["Action"] == "create")
                 {
+                    // Init controls.
                     lblMain.Text = "Creating New User";
                     checkboxChangePassword.Visible = false;
                     txtboxNewPassword.Enabled = true;
                     txtboxConfirmNewPassword.Enabled = true;
+                    // Init roles list.
+                    chkboxlistUserRoles.Items.Clear();
+                    using (var dbContext = new ApplicationDbContext())
+                    {
+                        foreach (var role in dbContext.Roles.ToList())
+                        {
+                            chkboxlistUserRoles.Items.Add(
+                                new ListItem() { Text = role.Name, Value = role.Id, Selected = false });
+                        }
+                    }
                 }
                 else
                     throw new Exception("got unknown action type");
@@ -90,6 +113,19 @@ namespace Hira
         }
 
 
+        private void LoadUserRolesFromControl(IdentityUser user, ApplicationDbContext dbContext)
+        {
+            user.Roles.Clear();
+            foreach (ListItem listboxItem in chkboxlistUserRoles.Items)
+            {
+                if (listboxItem.Selected)
+                {
+                    var role = dbContext.Roles.First(r => r.Id == listboxItem.Value);
+                    user.Roles.Add(new IdentityUserRole() { RoleId = role.Id, UserId = user.Id });
+                }
+            }
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (!this.FieldsAreValid())
@@ -106,7 +142,8 @@ namespace Hira
                     user.Email = txtboxEmail.Text;
                     user.EmailConfirmed = checkboxEmailConfirmed.Checked;
                     user.PhoneNumber = txtboxPhoneNumber.Text;
-                    // 
+                    LoadUserRolesFromControl(user, dbContext);
+                    //
                     if (txtboxNewPassword.Enabled)
                     {
                         UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
@@ -135,6 +172,7 @@ namespace Hira
                 using (var dbContext = new ApplicationDbContext())
                 {
                     dbContext.Users.Add(user);
+                    LoadUserRolesFromControl(user, dbContext);
                     dbContext.SaveChanges();
                         
                     UserManager<IdentityUser> userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>());
