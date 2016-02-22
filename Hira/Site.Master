@@ -53,7 +53,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <img src="Content/Images/Social-Media-Marketing-icon.png" style="width:30px; height:30px; margin: 10px 10px;"/>
+                    <img src="/Content/Images/Social-Media-Marketing-icon.png" style="width:30px; height:30px; margin: 10px 10px;"/>
                     <a class="navbar-brand" runat="server" href="~/" style="font-size:24px; float:none; padding-left:0px;">Hira Project</a>
                 </div>
                 <div class="navbar-collapse collapse">
@@ -92,8 +92,8 @@
 
                     <ul class="nav nav-pills nav-stacked" style="margin-left:20px; margin-right:20px;">
                       <li role="presentation">
-                          <a href="Users.aspx">
-                              <img src="Content/Images/Users.png" style="width:33px; height:33px;"/>
+                          <a href="/Users.aspx">
+                              <img src="/Content/Images/Users.png" style="width:33px; height:33px;"/>
                               Users
                           </a>
                       </li>
@@ -104,8 +104,8 @@
                           </a>
                       </li>
                       <li role="presentation">
-                          <a href="#">
-                              <img src="Content/Images/Module.png" style="width:33px; height:33px;"/>Modules</a></li>
+                          <a href="/Modules.aspx">
+                              <img src="/Content/Images/Module.png" style="width:33px; height:33px;"/>Modules</a></li>
                     </ul>
 
                 </td>

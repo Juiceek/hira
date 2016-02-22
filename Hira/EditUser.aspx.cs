@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using Hira.Models;
+//using Hira.Models;
 using Hira.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -15,6 +15,62 @@ namespace Hira
 {
     public partial class EditUser : System.Web.UI.Page
     {
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        private bool FieldsAreValid()
+        {
+            if (txtboxNewPassword.Enabled)
+            {
+                if (String.IsNullOrEmpty(txtboxNewPassword.Text))
+                    ModelState.AddModelError("", "The password field is required.");
+                if (String.IsNullOrEmpty(txtboxConfirmNewPassword.Text))
+                    ModelState.AddModelError("", "The password confirmation field is required.");
+                if (!String.IsNullOrEmpty(txtboxNewPassword.Text)
+                    &&
+                    !String.IsNullOrEmpty(txtboxConfirmNewPassword.Text)
+                    &&
+                    txtboxNewPassword.Text != txtboxConfirmNewPassword.Text)
+                {
+                    ModelState.AddModelError("", "The password and confirmation password do not match.");
+                }
+            }
+            if (String.IsNullOrEmpty(txtboxUsername.Text))
+            {
+                ModelState.AddModelError("", "The name field is required.");
+            }
+
+            return !ModelState.Values.Any();
+        }
+
+
+
+        private void LoadUserRolesFromControl(IdentityUser user, HiraDbContext dbContext)
+        {
+            user.Roles.Clear();
+            foreach (ListItem listboxItem in chkboxlistUserRoles.Items)
+            {
+                if (listboxItem.Selected)
+                {
+                    var role = dbContext.Roles.First(r => r.Id == listboxItem.Value);
+                    user.Roles.Add(new IdentityUserRole() { RoleId = role.Id, UserId = user.Id });
+                }
+            }
+        }
+
+
+        protected void checkboxChangePassword_CheckedChanged(object sender, EventArgs e)
+        {
+            txtboxNewPassword.Enabled = checkboxChangePassword.Checked;
+            txtboxConfirmNewPassword.Enabled = checkboxChangePassword.Checked;
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -73,59 +129,7 @@ namespace Hira
         }
 
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
 
-        protected void checkboxChangePassword_CheckedChanged(object sender, EventArgs e)
-        {
-            txtboxNewPassword.Enabled = checkboxChangePassword.Checked;
-            txtboxConfirmNewPassword.Enabled = checkboxChangePassword.Checked;
-        }
-
-
-        private bool FieldsAreValid()
-        {
-            if (txtboxNewPassword.Enabled)
-            {
-                if (String.IsNullOrEmpty(txtboxNewPassword.Text))
-                    ModelState.AddModelError("", "The password field is required.");
-                if (String.IsNullOrEmpty(txtboxConfirmNewPassword.Text))
-                    ModelState.AddModelError("", "The password confirmation field is required.");
-                if (!String.IsNullOrEmpty(txtboxNewPassword.Text)
-                    &&
-                    !String.IsNullOrEmpty(txtboxConfirmNewPassword.Text)
-                    &&
-                    txtboxNewPassword.Text != txtboxConfirmNewPassword.Text)
-                {
-                    ModelState.AddModelError("", "The password and confirmation password do not match.");
-                }
-            }
-            if (String.IsNullOrEmpty(txtboxUsername.Text))
-            {
-                ModelState.AddModelError("", "The name field is required.");
-            }
-            
-            return !ModelState.Values.Any();
-        }
-
-
-        private void LoadUserRolesFromControl(IdentityUser user, HiraDbContext dbContext)
-        {
-            user.Roles.Clear();
-            foreach (ListItem listboxItem in chkboxlistUserRoles.Items)
-            {
-                if (listboxItem.Selected)
-                {
-                    var role = dbContext.Roles.First(r => r.Id == listboxItem.Value);
-                    user.Roles.Add(new IdentityUserRole() { RoleId = role.Id, UserId = user.Id });
-                }
-            }
-        }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {

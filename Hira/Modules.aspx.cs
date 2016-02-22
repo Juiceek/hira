@@ -10,7 +10,7 @@ using Hira.DAL;
 
 namespace Hira
 {
-    public partial class Roles : System.Web.UI.Page
+    public partial class Modules : System.Web.UI.Page
     {
         protected string SuccessMessage { get; private set; }
 
@@ -18,9 +18,9 @@ namespace Hira
         {
             using (var dbContext = new HiraDbContext())
             {
-                var roles = dbContext.Roles.ToList();
-                gridRoles.DataSource = roles;
-                gridRoles.DataBind();
+                var modules = dbContext.Modules.ToList();
+                gridModules.DataSource = modules;
+                gridModules.DataBind();
             }
         }
 
@@ -34,29 +34,29 @@ namespace Hira
                 // Strip the query string from action
                 // Form.Action = ResolveUrl("~/Account/Manage");
                 SuccessMessage =
-                    message == "RoleCreated" ? "The role was successfully created."
-                    : message == "RoleEdited" ? "The role was successfully changed."
+                    message == "ModuleCreated" ? "The module was successfully created."
+                    : message == "ModuleEdited" ? "The module was successfully changed."
                     : String.Empty;
                 successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
             }
         }
 
-        protected void gridRoles_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void gridModules_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            var id = this.gridRoles.DataKeys[e.RowIndex].Value.ToString();
+            var id = this.gridModules.DataKeys[e.RowIndex].Value.ToString();
             using (var dbContext = new HiraDbContext())
             {
-                var role = dbContext.Roles.First(u => u.Id == id);
-                dbContext.Roles.Remove(role);
+                var module = dbContext.Modules.First(m => m.Id.ToString() == id);
+                dbContext.Modules.Remove(module);
                 dbContext.SaveChanges();
             }
             LoadGridData();
         }
 
-        protected void gridRoles_RowEditing(object sender, GridViewEditEventArgs e)
+        protected void gridModules_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            var id = this.gridRoles.DataKeys[e.NewEditIndex].Value.ToString();
-            Response.Redirect("EditRole.aspx?action=edit&RoleId="+id);
+            var id = this.gridModules.DataKeys[e.NewEditIndex].Value.ToString();
+            Response.Redirect("EditModule.aspx?action=edit&ModuleId="+id);
         }
     }
 }

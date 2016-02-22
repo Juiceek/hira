@@ -37,6 +37,8 @@
         </section>
     </div>
     <div>
+        <!--
         <uc:OpenAuthProviders runat="server" ReturnUrl="~/Account/ManageLogins" />
+        -->
     </div>
 </asp:Content>

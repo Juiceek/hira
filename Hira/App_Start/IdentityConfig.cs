@@ -100,4 +100,20 @@ namespace Hira
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+
+
+    public class ApplicationRoleManager : RoleManager<AppRole>
+    {
+        public ApplicationRoleManager(
+            IRoleStore<AppRole, string> roleStore)
+            : base(roleStore)
+        {
+        }
+        public static ApplicationRoleManager Create(
+            IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
+        {
+            return new ApplicationRoleManager(
+                new RoleStore<AppRole>(context.Get<HiraDbContext>()));
+        }
+    }
 }

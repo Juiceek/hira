@@ -3,7 +3,7 @@
     <div style="margin-bottom:30px; margin-top:20px; margin-left:30px;">
         <img src="Content/Images/User.png" style="width:40px; height:40px;" />
         <asp:Label ID="lblMain" runat="server" Text="Undefined" CssClass="h3"></asp:Label>
-        <asp:ValidationSummary runat="server" ShowModelStateErrors="true" CssClass="text-danger" Height="40px" ShowMessageBox="True" />
+        <asp:ValidationSummary runat="server" ShowModelStateErrors="true" CssClass="text-danger" Height="40px"/>
     </div>
     <table class="nav-justified">
         <tr>

@@ -7,36 +7,45 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hira.Account {
+namespace Hira {
     
     
-    public partial class Manage {
+    public partial class EditModule {
         
         /// <summary>
-        /// successMessage control.
+        /// lblMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder successMessage;
+        protected global::System.Web.UI.WebControls.Label lblMain;
         
         /// <summary>
-        /// ChangePassword control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ChangePassword;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// CreatePassword control.
+        /// txtboxModuleName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink CreatePassword;
+        protected global::System.Web.UI.WebControls.TextBox txtboxModuleName;
+        
+        /// <summary>
+        /// btnSave0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnSave0;
     }
 }

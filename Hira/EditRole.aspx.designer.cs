@@ -40,12 +40,30 @@ namespace Hira {
         protected global::System.Web.UI.WebControls.TextBox txtboxRoleName;
         
         /// <summary>
-        /// btnSave control.
+        /// Label9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
+        /// chkboxlistRoleModules control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chkboxlistRoleModules;
+        
+        /// <summary>
+        /// btnSave0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnSave0;
     }
 }

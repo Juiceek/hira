@@ -15,7 +15,8 @@ namespace Hira.DAL
 
 
 
-    public class HiraDbContext : IdentityDbContext<AppUser, AppRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>
+    //public class HiraDbContext : IdentityDbContext<AppUser, AppRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>
+    public class HiraDbContext : IdentityDbContext<AppUser>
     {
 
         public HiraDbContext()
@@ -33,6 +34,8 @@ namespace Hira.DAL
             base.OnModelCreating(modelBuilder);
 
             //
+            modelBuilder.Entity<AppRole>().ToTable("AspNetRoles");
+
             modelBuilder.Entity<AppRole>()
             .HasMany(r => r.Modules)
             .WithMany( m => m.Roles)
@@ -42,13 +45,13 @@ namespace Hira.DAL
                 x.MapRightKey("Module_Id");
                 x.ToTable("RoleModules");
             });
-
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
-        public virtual DbSet<AppModule> AppModules { get; set; }
+        public virtual DbSet<AppModule> Modules { get; set; }
+        public virtual DbSet<AppRole> AppRoles { get; set; }
     }
 
 
@@ -68,6 +71,7 @@ namespace Hira.DAL
         }
     }
 
+
     public class AppModule
     {
          public AppModule()
@@ -81,14 +85,18 @@ namespace Hira.DAL
         public virtual ICollection<AppRole> Roles { get; set; }
     }
 
+
     public class AppRole : IdentityRole
     {
-        public AppRole() : base() 
+        public AppRole()
+            : base()
         {
             this.Modules = new List<AppModule>();
         }
 
         public AppRole(string name) : base(name) { }
+
+        //public string Discriminator { get; set; }
 
         public virtual ICollection<AppModule> Modules { get; set; }
     }
